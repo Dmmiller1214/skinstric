@@ -839,3 +839,7 @@
   border-left: 0;
   border-right: 7px solid currentColor;
 }
+
+video.camera-preview {
+  transform: scaleX(-1);
+}
