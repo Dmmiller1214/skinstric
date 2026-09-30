@@ -818,3 +818,24 @@
   color: #fff;
   cursor: pointer;
 }
+
+.take-test-diamond span {
+  font-size: 0;
+}
+
+.take-test-diamond span::before {
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 7px solid currentColor;
+}
+
+.name-entry-back .take-test-diamond span::before,
+.demographics-back .take-test-diamond span::before,
+.discover-ai .take-test-diamond span::before {
+  border-left: 0;
+  border-right: 7px solid currentColor;
+}
