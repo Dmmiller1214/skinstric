@@ -8,8 +8,11 @@ Live site: https://skinstric-lime.vercel.app/
 
 - Name and location forms with validation.
 - Customer information submitted to the Phase 1 API.
-- Image selection, preview, and Base64 upload.
-- Camera capture, retake, and selfie upload.
+- Automatic Base64 upload and analysis after selecting a gallery image.
+- Camera capture and retake, with automatic analysis after accepting a photo.
+- Thank You page after successful customer information submission.
+- Animated diamond outlines, hover effects, and demographic confidence rings.
+- Reduced-motion support for animations.
 - Loading and error feedback.
 - Race, age, and gender scores sorted highest to lowest.
 - Percentages displayed to two decimal places.
@@ -57,6 +60,7 @@ npm run build
 - `/` — Introduction
 - `/name` — Name entry
 - `/location` — Location entry
+- `/thank-you` — Customer submission confirmation
 - `/image-options` — Gallery or camera selection
 - `/camera` — Camera capture
 - `/analysis` — Analysis menu
@@ -67,6 +71,7 @@ npm run build
 Form values, image selections, results, and corrected attributes are
 stored in React state and reset when the page is refreshed.
 
+Opening the Thank You page without a name and location redirects to name entry.
 Opening the location page without a name redirects to name entry.
 Opening analysis or demographics without results redirects to image selection.
 
