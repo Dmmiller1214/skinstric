@@ -1,16 +1,86 @@
-# React + Vite
+# Skinstric
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A responsive React application built for the Skinstric internship assignment.
 
-Currently, two official plugins are available:
+Live site: https://skinstric-lime.vercel.app/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Features
 
-## React Compiler
+- Name and location forms with validation.
+- Customer information submitted to the Phase 1 API.
+- Image selection, preview, and Base64 upload.
+- Camera capture, retake, and selfie upload.
+- Loading and error feedback.
+- Race, age, and gender scores sorted highest to lowest.
+- Percentages displayed to two decimal places.
+- Editable demographic selections and reset functionality.
+- Separate page URLs with browser Back/Forward navigation.
+- Responsive layouts for desktop, tablet, and mobile.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+The demographic scores are randomized simulations returned by the
+assignment API. They are not real assessments of a person's appearance
+or identity.
 
-## Expanding the ESLint configuration
+## Technologies
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React
+- Vite
+- React Router
+- Standard CSS
+- SVG artwork exported from Figma
+- Vercel
+
+## Run locally
+
+Install dependencies:
+
+npm install
+
+Start the development server:
+
+npm run dev
+
+Open the Local URL printed in the terminal.
+
+## Project checks
+
+Check code quality:
+
+npm run lint
+
+Create a production build:
+
+npm run build
+
+## Page routes
+
+- `/` — Introduction
+- `/name` — Name entry
+- `/location` — Location entry
+- `/image-options` — Gallery or camera selection
+- `/camera` — Camera capture
+- `/analysis` — Analysis menu
+- `/demographics` — Demographic results
+
+## Data and camera behavior
+
+Form values, image selections, results, and corrected attributes are
+stored in React state and reset when the page is refreshed.
+
+Opening the location page without a name redirects to name entry.
+Opening analysis or demographics without results redirects to image selection.
+
+Camera access requires browser permission and HTTPS or localhost.
+The live selfie preview is mirrored; the captured image is not.
+Camera tracks are stopped when the camera screen closes.
+
+Customer details and images are sent to the assignment's supplied APIs.
+Their server-side retention behavior is not documented in the assignment.
+
+## Current limitations
+
+- Arial is used as a fallback because the Figma font, Roobert TRIAL,
+  was not supplied.
+- Skin type, cosmetic concerns, and weather options are disabled.
+  Their functionality is outside the PDF's listed requirements.
+- ENTER CODE and DISCOVER A.I. are visual placeholders without actions.
