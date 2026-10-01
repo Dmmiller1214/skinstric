@@ -91,6 +91,14 @@ function ImageOptions({ onBack }) {
     setImageError("");
     updateSelectedImage(file);
   }
+  if (isAnalyzing) {
+    return (
+      <main className="analysis-loading" aria-busy="true">
+        <div className="entry-diamonds" aria-hidden="true" />
+        <p role="status">PREPARING YOUR ANALYSIS…</p>
+      </main>
+    );
+  }
   if (showCamera) {
     return (
       <CameraCapture
