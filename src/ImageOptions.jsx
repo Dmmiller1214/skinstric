@@ -6,6 +6,7 @@ import { analyzeImage } from "./api";
 import Demographics from "./Demographics";
 import AnalysisMenu from "./AnalysisMenu";
 import CameraCapture from "./CameraCapture";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 
 function ImageOptions({ onBack }) {
   const fileInputRef = useRef(null);
@@ -14,9 +15,10 @@ function ImageOptions({ onBack }) {
   const [previewUrl, setPreviewUrl] = useState("");
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysisResult, setAnalysisResult] = useState(null);
-  const [showDemographics, setShowDemographics] = useState(false);
   const [selectedAttributes, setSelectedAttributes] = useState({});
-  const [showCamera, setShowCamera] = useState(false);
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const showCamera = pathname === "/camera";
 
   useEffect(() => {
     return () => {
@@ -59,6 +61,7 @@ function ImageOptions({ onBack }) {
       setSelectedAttributes(selections);
 
       setAnalysisResult(result);
+      navigate("/analysis");
     } catch (error) {
       setImageError(
         error instanceof Error
@@ -91,36 +94,36 @@ function ImageOptions({ onBack }) {
   if (showCamera) {
     return (
       <CameraCapture
-        onBack={() => setShowCamera(false)}
+        onBack={() => navigate("/image-options")}
         onCapture={(file) => {
           updateSelectedImage(file);
           setImageError("");
           setAnalysisResult(null);
-          setShowDemographics(false);
-          setShowCamera(false);
+          navigate("/image-options");
         }}
       />
     );
   }
-  if (analysisResult) {
-    if (showDemographics) {
+  if (pathname === "/analysis" || pathname === "/demographics") {
+    if (!analysisResult) {
+      return <Navigate to="/image-options" replace />;
+    }
+
+    if (pathname === "/demographics") {
       return (
         <Demographics
           results={analysisResult}
           selectedAttributes={selectedAttributes}
           setSelectedAttributes={setSelectedAttributes}
-          onBack={() => setShowDemographics(false)}
+          onBack={() => navigate("/analysis")}
         />
       );
     }
 
     return (
       <AnalysisMenu
-        onDemographics={() => setShowDemographics(true)}
-        onBack={() => {
-          setShowDemographics(false);
-          setAnalysisResult(null);
-        }}
+        onDemographics={() => navigate("/demographics")}
+        onBack={() => navigate("/image-options")}
       />
     );
   }
@@ -147,7 +150,7 @@ function ImageOptions({ onBack }) {
           type="button"
           className="image-option"
           aria-label="Allow A.I. to scan your face"
-          onClick={() => setShowCamera(true)}
+          onClick={() => navigate("/camera")}
         >
           <img src={cameraIcon} alt="" className="image-option-icon" />
         </button>

@@ -4,10 +4,17 @@ import "./App.css";
 import LocationEntry from "./LocationEntry";
 import { submitCustomer } from "./api";
 import ImageOptions from "./ImageOptions";
+import { Navigate, useLocation, useNavigate } from 'react-router-dom'
 
 function App() {
   const [customerLocation, setCustomerLocation] = useState("");
-  const [screen, setScreen] = useState("intro");
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const screen = pathname === "/" ? "intro" : pathname.slice(1);
+
+  function goToScreen(nextScreen) {
+    navigate(nextScreen === "intro" ? "/" : `/${nextScreen}`);
+  }
   const [customerName, setCustomerName] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submissionMessage, setSubmissionMessage] = useState("");
@@ -20,7 +27,7 @@ function App() {
     try {
       await submitCustomer(customerName, location);
       setSubmissionMessage("");
-      setScreen("image-options");
+      goToScreen("image-options");
     } catch (error) {
       setSubmissionMessage(
         error instanceof Error
@@ -36,20 +43,23 @@ function App() {
     return (
       <NameEntry
         initialName={customerName}
-        onBack={() => setScreen("intro")}
+        onBack={() => goToScreen("intro")}
         onProceed={(name) => {
           setCustomerName(name);
           setSubmissionMessage("");
-          setScreen("location");
+          goToScreen("location");
         }}
       />
     );
   }
   if (screen === "location") {
+    if (!customerName.trim()) {
+      return <Navigate to="/name" replace />;
+    }
     return (
       <LocationEntry
         initialLocation={customerLocation}
-        onBack={() => setScreen("name")}
+        onBack={() => goToScreen("name")}
         onProceed={handleCustomerSubmit}
         isSubmitting={isSubmitting}
         submissionMessage={submissionMessage}
@@ -57,8 +67,10 @@ function App() {
     );
   }
 
-  if (screen === "image-options") {
-    return <ImageOptions onBack={() => setScreen("location")} />;
+  if (
+    ["image-options", "camera", "analysis", "demographics"].includes(screen)
+  ) {
+    return <ImageOptions onBack={() => goToScreen("location")} />;
   }
   return (
     <>
@@ -86,7 +98,7 @@ function App() {
         <button
           className="take-test"
           type="button"
-          onClick={() => setScreen("name")}
+          onClick={() => goToScreen("name")}
         >
           <span>TAKE TEST</span>
           <span className="take-test-diamond" aria-hidden="true">
