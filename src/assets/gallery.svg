@@ -8,4 +8,30 @@
 <path opacity="0.3" d="M247 1L488 242L247 483L6 242L247 1Z" stroke="#A0A4AB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="0.1 8"/>
 <path opacity="0.6" d="M247 19.8281L469.172 242L247 464.172L24.8281 242L247 19.8281Z" stroke="#A0A4AB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="0.1 8"/>
 <path d="M247 39.4092L449.59 242L247 444.59L44.4092 242L247 39.4092Z" stroke="#A0A4AB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="0.1 8"/>
+<style>
+  @keyframes diamond-turn {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  path[stroke-dasharray] {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: diamond-turn 12s linear infinite;
+  }
+
+  path[stroke-dasharray][opacity="0.6"] {
+    animation-direction: reverse;
+  }
+
+  path[stroke-dasharray][opacity="0.3"] {
+    animation-duration: 8s;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    path[stroke-dasharray] {
+      animation: none;
+    }
+  }
+</style>
 </svg>

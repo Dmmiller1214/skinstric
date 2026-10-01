@@ -32,8 +32,8 @@ function ImageOptions({ onBack }) {
     setSelectedFile(file);
     setPreviewUrl(file ? URL.createObjectURL(file) : "");
   }
-  async function handleAnalyze() {
-    if (!selectedFile || isAnalyzing) {
+  async function handleAnalyze(file) {
+    if (!file || isAnalyzing) {
       return;
     }
 
@@ -42,7 +42,7 @@ function ImageOptions({ onBack }) {
     setAnalysisResult(null);
 
     try {
-      const base64 = await fileToBase64(selectedFile);
+      const base64 = await fileToBase64(file);
       const result = await analyzeImage(base64);
 
       if (!result?.race || !result?.age || !result?.gender) {
@@ -90,6 +90,7 @@ function ImageOptions({ onBack }) {
 
     setImageError("");
     updateSelectedImage(file);
+    handleAnalyze(file);
   }
   if (isAnalyzing) {
     return (
@@ -108,6 +109,7 @@ function ImageOptions({ onBack }) {
           setImageError("");
           setAnalysisResult(null);
           navigate("/image-options");
+          handleAnalyze(file);
         }}
       />
     );
@@ -188,23 +190,17 @@ function ImageOptions({ onBack }) {
         </button>
         {imageError && <p role="alert">{imageError}</p>}
       </div>
-      <div className="image-analysis">
-        <button
-          type="button"
-          onClick={handleAnalyze}
-          disabled={!selectedFile || isAnalyzing}
-        >
-          {isAnalyzing ? "ANALYZING…" : "UPLOAD AND ANALYZE"}
-        </button>
-
-        <p role="status">
-          {isAnalyzing
-            ? "Uploading your image…"
-            : analysisResult
-              ? "Results received: race, age, and gender."
-              : ""}
-        </p>
-      </div>
+      {imageError && selectedFile && (
+        <div className="image-analysis">
+          <button
+            type="button"
+            onClick={() => handleAnalyze(selectedFile)}
+            disabled={isAnalyzing}
+          >
+            RETRY ANALYSIS
+          </button>
+        </div>
+      )}
 
       <button
         className="name-entry-back"

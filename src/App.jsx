@@ -4,7 +4,8 @@ import "./App.css";
 import LocationEntry from "./LocationEntry";
 import { submitCustomer } from "./api";
 import ImageOptions from "./ImageOptions";
-import { Navigate, useLocation, useNavigate } from 'react-router-dom'
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import ThankYou from "./ThankYou";
 
 function App() {
   const [customerLocation, setCustomerLocation] = useState("");
@@ -27,7 +28,7 @@ function App() {
     try {
       await submitCustomer(customerName, location);
       setSubmissionMessage("");
-      goToScreen("image-options");
+      goToScreen("thank-you");
     } catch (error) {
       setSubmissionMessage(
         error instanceof Error
@@ -65,6 +66,24 @@ function App() {
         submissionMessage={submissionMessage}
       />
     );
+  }
+  if (screen === "thank-you") {
+    if (!customerName.trim() || !customerLocation.trim()) {
+      return <Navigate to="/name" replace />;
+    }
+
+    return (
+      <ThankYou
+        onBack={() => goToScreen("location")}
+        onProceed={() => goToScreen("image-options")}
+      />
+    );
+  }
+
+  if (
+    ["image-options", "camera", "analysis", "demographics"].includes(screen)
+  ) {
+    return <ImageOptions onBack={() => goToScreen("location")} />;
   }
 
   if (

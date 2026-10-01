@@ -843,3 +843,212 @@
 video.camera-preview {
   transform: scaleX(-1);
 }
+
+@keyframes analysis-spin {
+  from {
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+
+  to {
+    transform: translate(-50%, -50%) rotate(405deg);
+  }
+}
+
+@keyframes outline-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.entry-diamonds {
+  animation: analysis-spin 12s linear infinite;
+}
+
+.entry-diamonds::before {
+  animation: outline-spin 6s linear infinite reverse;
+}
+
+.entry-diamonds::after {
+  animation: outline-spin 24s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .entry-diamonds,
+  .entry-diamonds::before,
+  .entry-diamonds::after {
+    animation: none;
+  }
+}
+
+.image-option-icon {
+  transition: transform 180ms ease-out;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .image-option:not(:disabled):hover .image-option-icon {
+    transform: scale(1.03);
+  }
+}
+
+.image-option:focus-visible .image-option-icon {
+  transform: scale(1.03);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .image-option-icon {
+    transition: none;
+  }
+
+  .image-option:hover .image-option-icon,
+  .image-option:focus-visible .image-option-icon {
+    transform: none;
+  }
+}
+
+.tile-demographics {
+  position: relative;
+  transition:
+    transform 180ms ease-out,
+    background-color 180ms ease-out;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .tile-demographics:hover {
+    transform: scale(1.04);
+    z-index: 1;
+  }
+}
+
+.tile-demographics:focus-visible {
+  transform: scale(1.04);
+  z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tile-demographics {
+    transition: none;
+  }
+
+  .tile-demographics:hover,
+  .tile-demographics:focus-visible {
+    transform: none;
+  }
+}
+
+.confidence-circle {
+  position: relative;
+  border: none;
+}
+
+.confidence-ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.confidence-track,
+.confidence-progress {
+  fill: none;
+  stroke-width: 1;
+}
+
+.confidence-track {
+  stroke: #ddd;
+}
+
+.confidence-progress {
+  stroke: #1a1b1c;
+  stroke-dasharray: 100;
+  stroke-dashoffset: var(--ring-offset);
+  animation: confidence-fill 700ms ease-out both;
+}
+
+@keyframes confidence-fill {
+  from {
+    stroke-dashoffset: 100;
+  }
+
+  to {
+    stroke-dashoffset: var(--ring-offset);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .confidence-progress {
+    animation: none;
+  }
+}
+
+.intro-title {
+  transition: transform 400ms ease;
+}
+
+.intro::before,
+.intro::after,
+.discover-ai,
+.take-test {
+  transition: opacity 250ms ease;
+}
+
+@media (min-width: 901px) and (hover: hover) {
+  /* Right choice: move the heading to the left edge. */
+  .intro:has(.take-test:is(:hover, :focus-visible)) .intro-title {
+    text-align: left;
+    transform: translateX(calc(-50vw + 50% + 32px));
+  }
+
+  .intro:has(.take-test:is(:hover, :focus-visible)) .discover-ai,
+  .intro:has(.take-test:is(:hover, :focus-visible))::before {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Left choice: mirror the arrangement. */
+  .intro:has(.discover-ai:is(:hover, :focus-visible)) .intro-title {
+    text-align: right;
+    transform: translateX(calc(50vw - 50% - 32px));
+  }
+
+  .intro:has(.discover-ai:is(:hover, :focus-visible)) .take-test,
+  .intro:has(.discover-ai:is(:hover, :focus-visible))::after {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro .intro-title {
+    transition: none;
+    transform: none;
+    text-align: center;
+  }
+
+  .intro::before,
+  .intro::after,
+  .discover-ai,
+  .take-test {
+    transition: none;
+  }
+}
+
+.thank-you-message {
+  text-align: center;
+}
+
+.thank-you-message h1 {
+  margin: 0 0 24px;
+  font-size: 28px;
+  font-weight: 400;
+}
+
+.thank-you-message p {
+  margin: 0;
+  color: #767676;
+  font-size: 20px;
+}

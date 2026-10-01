@@ -7,7 +7,6 @@ function Demographics({
   setSelectedAttributes,
 }) {
   const [activeCategory, setActiveCategory] = useState("race");
-  
 
   const scores = Object.entries(results[activeCategory]).sort(
     (a, b) => b[1] - a[1],
@@ -64,6 +63,25 @@ function Demographics({
           <h2>{selectedLabel}</h2>
 
           <div className="confidence-circle">
+            <svg
+              className="confidence-ring"
+              viewBox="0 0 120 120"
+              aria-hidden="true"
+            >
+              <circle className="confidence-track" cx="60" cy="60" r="56" />
+              <circle
+                key={`${activeCategory}-${selectedLabel}`}
+                className="confidence-progress"
+                cx="60"
+                cy="60"
+                r="56"
+                pathLength="100"
+                style={{
+                  "--ring-offset": 100 - selectedScore * 100,
+                }}
+              />
+            </svg>
+
             <span>{(selectedScore * 100).toFixed(2)}%</span>
           </div>
         </section>
