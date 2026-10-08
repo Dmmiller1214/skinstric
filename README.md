@@ -1,91 +1,88 @@
-# Skinstric
+# Skinstric — Image Analysis Interface
 
-A responsive React application built for the Skinstric internship assignment.
+A React frontend demonstrating a multi-step experience for collecting user details, uploading or capturing an image, and displaying results returned by an external analysis API.
 
-Live site: https://skinstric-lime.vercel.app/
+The project focuses on interface design, navigation, camera interaction, asynchronous requests, and results visualization.
+
+## Live Demo
+
+[View Skinstric](https://skinstric-lime.vercel.app/)
 
 ## Features
 
-- Name and location forms with validation.
-- Customer information submitted to the Phase 1 API.
-- Automatic Base64 upload and analysis after selecting a gallery image.
-- Camera capture and retake, with automatic analysis after accepting a photo.
-- Thank You page after successful customer information submission.
-- Animated diamond outlines, hover effects, and demographic confidence rings.
-- Reduced-motion support for animations.
-- Loading and error feedback.
-- Race, age, and gender scores sorted highest to lowest.
-- Percentages displayed to two decimal places.
-- Editable demographic selections and reset functionality.
-- Separate page URLs with browser Back/Forward navigation.
-- Responsive layouts for desktop, tablet, and mobile.
+- Multi-step name and location entry
+- Submission of user details to an external API
+- Image upload with file-type validation
+- Camera preview, photo capture, and retake controls
+- Base64 image conversion for API submission
+- Loading and error messages
+- Results organized into categories with confidence displays
+- Selection and reset controls for displayed result labels
+- Navigation using React Router
 
-The demographic scores are randomized simulations returned by the
-assignment API. They are not real assessments of a person's appearance
-or identity.
-
-## Technologies
+## Tech Stack
 
 - React
+- JavaScript and JSX
+- CSS
 - Vite
 - React Router
-- Standard CSS
-- SVG artwork exported from Figma
-- Vercel
+- Fetch API
+- Browser camera, Canvas, and FileReader APIs
 
-## Run locally
+## Run Locally
 
-Install dependencies:
+Download or clone the repository, then open its root folder in a terminal:
 
-npm install
-
-Start the development server:
-
+```bash
+npm ci
 npm run dev
+```
 
-Open the Local URL printed in the terminal.
+Open the local URL shown in the terminal.
 
-## Project checks
+Camera capture requires browser permission and a secure context, such as HTTPS or localhost.
 
-Check code quality:
+## Available Commands
 
-npm run lint
+| Command | Purpose |
+| --- | --- |
+| `npm run dev` | Start the development server |
+| `npm run build` | Create a production build |
+| `npm run preview` | Preview the production build |
+| `npm run lint` | Run ESLint |
 
-Create a production build:
+## Project Structure
 
-npm run build
+```text
+src/
+├── App.jsx           # Intro and user-details flow
+├── NameEntry.jsx     # Name entry
+├── LocationEntry.jsx # Location entry
+├── ThankYou.jsx      # Submission confirmation
+├── ImageOptions.jsx  # Upload and analysis flow
+├── CameraCapture.jsx # Camera preview and capture
+├── AnalysisMenu.jsx  # Results navigation
+├── Demographics.jsx  # Results display and selection
+├── api.js            # External API requests
+└── imageUtils.js     # Image conversion
+```
 
-## Page routes
+## External Services and Data
 
-- `/` — Introduction
-- `/name` — Name entry
-- `/location` — Location entry
-- `/thank-you` — Customer submission confirmation
-- `/image-options` — Gallery or camera selection
-- `/camera` — Camera capture
-- `/analysis` — Analysis menu
-- `/demographics` — Demographic results
+The application sends names and locations to the configured Skinstric phase-one endpoint. Uploaded or captured images are sent to its phase-two endpoint.
 
-## Data and camera behavior
+The frontend displays the returned values; it does not train or run an AI model locally. Results are model outputs, not verified facts about a person or medical assessments.
 
-Form values, image selections, results, and corrected attributes are
-stored in React state and reset when the page is refreshed.
+## Current Limitations
 
-Opening the Thank You page without a name and location redirects to name entry.
-Opening the location page without a name redirects to name entry.
-Opening analysis or demographics without results redirects to image selection.
+- API-dependent features require the external service to be available.
+- User details and analysis results are held in React state and are not persisted across page refreshes.
+- The intro's Enter Code and Discover A.I. controls have no implemented action.
+- The inspected code displays demographic results; it does not generate a personalized skincare routine.
 
-Camera access requires browser permission and HTTPS or localhost.
-The live selfie preview is mirrored; the captured image is not.
-Camera tracks are stopped when the camera screen closes.
+## Project Context and Credits
 
-Customer details and images are sent to the assignment's supplied APIs.
-Their server-side retention behavior is not documented in the assignment.
+Describe whether this was training, internship, contract, or company work, and identify your own contribution before publishing this section.
 
-## Current limitations
-
-- Arial is used as a fallback because the Figma font, Roobert TRIAL,
-  was not supplied.
-- Skin type, cosmetic concerns, and weather options are disabled.
-  Their functionality is outside the PDF's listed requirements.
-- ENTER CODE and DISCOVER A.I. are visual placeholders without actions.
+Credit any supplied design, branding, assets, or starter code. Public availability does not establish ownership of those materials.
