@@ -83,6 +83,8 @@ The frontend displays the returned values; it does not train or run an AI model 
 
 ## Project Context and Credits
 
-Describe whether this was training, internship, contract, or company work, and identify your own contribution before publishing this section.
+This project was completed as part of an internship with Skinstric.
 
-Credit any supplied design, branding, assets, or starter code. Public availability does not establish ownership of those materials.
+The repository contains the frontend interface and integration with external Skinstric API endpoints. The AI model and backend services are separate from this frontend.
+
+Skinstric branding, supplied designs, assets, and API services belong to their respective owners.
